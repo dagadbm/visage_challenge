@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "prestart": "cd db && sequelize db:migrate --env production",
+    "start": "node server.js",
+    "prestart:local": "cd db && sequelize db:migrate --env development",
+    "start:local": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +19,7 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
 }

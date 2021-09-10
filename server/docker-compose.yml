@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - local-db-data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=development
+
+volumes:
+  local-db-data:
