@@ -2,9 +2,14 @@ const { Candidate } = require("../db/models");
 
 // get all post 
 exports.getAllCandidates = async (req, reply) => {
-    return await Candidate.findAll({
+    const candidates = await Candidate.findAll({
         attributes: ['id', 'name', 'jobTitle', 'notes'],
     });
+
+    return candidates.reduce((acc, candidate) => {
+        acc[candidate.id] = candidate;
+        return acc;
+    }, {});
 }
 
 // get single post by id
