@@ -19,9 +19,14 @@ export const store = createStore({
   },
   actions: {
     async fetchCandidates (context) {
-      const data = await fetch(`${import.meta.env.VITE_API_HOST_URL}/api/v1/candidates`)
+      const candidates = await fetch(`${import.meta.env.VITE_API_HOST_URL}/api/v1/candidates`)
         .then(response => response.json());
-      context.commit('setCandidates', data);
+      context.commit('setCandidates', candidates);
+    },
+    async fetchCandidate (context, candidate) {
+      const fetchedCandidate = await fetch(`${import.meta.env.VITE_API_HOST_URL}/api/v1/candidates/${candidate.id}`)
+        .then(response => response.json());
+      context.commit('setCandidate', fetchedCandidate);
     },
     async createCandidate (context, candidate) {
       const newCandidate = await fetch(`${import.meta.env.VITE_API_HOST_URL}/api/v1/candidates`, {

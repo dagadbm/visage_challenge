@@ -7,6 +7,7 @@ const name = ref('');
 const jobTitle = ref('');
 const notes = ref('');
 const base64CV = ref('');
+const emit = defineEmits(['close']);
 
 function onUploadCV (event) {
   const reader = new FileReader();
@@ -20,9 +21,6 @@ function onUploadCV (event) {
 }
 
 function onSubmit (event) {
-  if (!name && !jobTitle && !notes && !base64CV) {
-    return false;
-  }
   store.dispatch('createCandidate', {
     name: unref(name),
     jobTitle: unref(jobTitle),
@@ -30,6 +28,7 @@ function onSubmit (event) {
     document: unref(base64CV),
   });
 
+  emit('close');
   event.preventDefault();
   return false;
 }
@@ -42,7 +41,7 @@ function onSubmit (event) {
       <div class="modal-container">
         <h1>Create Candidate</h1>
 
-        <form>
+        <form action="" @submit="onSubmit">
           <label for="name">Name</label>
           <input name="name" type="text" v-model="name" required/>
 
@@ -59,7 +58,7 @@ function onSubmit (event) {
               <button class="modal-default-button" type="reset" @click="$emit('close')">
                 Cancel
               </button>
-              <button class="modal-default-button" type="submit" @click="onSubmit">
+              <button class="modal-default-button" type="submit">
                 Submit
               </button>
             </div>
@@ -91,7 +90,7 @@ function onSubmit (event) {
   width: 50vw;
   margin: 0 auto;
   padding: 56px;
-  background-color: #fff;
+  background-color: #faf9f8;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   font-family: 'Open Sans', sans-serif;
@@ -100,6 +99,7 @@ function onSubmit (event) {
 }
 
 h1 {
+  color: #00b074;
   font-size: 20px;
   font-weight: 600;
   margin: 0;
@@ -112,16 +112,28 @@ form {
   flex-flow: column;
   flex-grow: 1;
 
+  label {
+    color: #868c94;
+  }
+
   input, textarea {
     margin-bottom: 16px;
+    color: #0b132a;
+  }
+  textarea {
+    resize: vertical;
   }
 
   .form-buttons {
     display: flex;
     justify-content: flex-end;
 
+    button {
+      color: #0b132a;
+    }
+
     button:first-child {
-      margin-right: 16px;
+      margin-right: 8px;
     }
   }
 }

@@ -15,28 +15,21 @@ const showForm = ref(false);
 
 <style scoped lang="scss">
 .candidate-card {
-  padding: 56px;
+  height: 320px;
+  width: 320px;
+  padding: 24px 48px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  position: relative;
-  background-color: #fff;
   border-radius: 8px;
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s ease-in-out;
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #faf9f8;
+  color: #00b074;
 
-  &::after {
-    content: '';
-    border-radius: 8px;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
   }
 
   &:hover::after {

@@ -13,24 +13,19 @@ const candidates = computed(() => store.getters.candidates);
 </script>
 
 <template>
-  <div class="candidates-list">
+  <main class="candidates-list">
     <CreateCandidateCard />
-    <template
-      v-for="candidate in candidates" :key="candidate.id">
-      <CandidateCard
-      :name="candidate.name"
-      :jobTitle="candidate.jobTitle"
-      :notes="candidate.notes"
-      />
-    </template>
-  </div>
+    <CandidateCard v-for="candidate in candidates" :key="candidate.id"
+      :candidate="candidate"
+    />
+  </main>
 </template>
 
 <style scoped lang="scss">
 .candidates-list {
   display: grid;
   grid-gap: 48px;
-  grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) );
+  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
   padding: 56px;
 }
 </style>

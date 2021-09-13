@@ -1,13 +1,39 @@
 <script setup>
-import { ref } from 'vue'
+import { useStore } from 'vuex';
 
-defineProps({
-  name: String,
-  jobTitle: String,
-  notes: String,
-})
+const store = useStore();
 
-const count = ref(0)
+const props = defineProps({
+  candidate: Object,
+});
+
+const {
+  name,
+  jobTitle,
+  notes,
+  document,
+} = props.candidate
+</script>
+<script>
+export default {
+  methods: {
+    async downloadCV(event) {
+      event.preventDefault();
+
+      // if we dont have the document base64 on our props
+      // this means we need to fetch it from the store first
+      if (!this.document) {
+        await this.store.dispatch('fetchCandidate', this.candidate);
+      }
+
+      const base64Document = this.store.state.candidates[this.candidate.id].document;
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.href = `data:application/pdf;base64,${base64Document}`;
+      downloadAnchor.download = `cv.pdf`;
+      downloadAnchor.click();
+    }
+  },
+}
 </script>
 
 <template>
@@ -15,7 +41,7 @@ const count = ref(0)
     <h1>{{ name }}</h1>
     <h2>{{ jobTitle }}</h2>
     <p>{{ notes }}</p>
-    <a>CV</a>
+    <a @click="downloadCV" href="">Download CV</a>
   </div>
 </template>
 
@@ -25,30 +51,15 @@ const count = ref(0)
   min-width: 320px;
   padding: 24px 48px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  position: relative;
-  background-color: #fff;
+  background-color: #faf9f8;
   border-radius: 8px;
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s ease-in-out;
   font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-flow: column;
 
-  &::after {
-    content: '';
-    border-radius: 8px;
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-
-  &:hover::after {
-    opacity: 1;
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
   }
 
   h1, h2, p {
@@ -58,18 +69,28 @@ const count = ref(0)
   h1 {
     font-weight: 600;
     font-size: 20px;
+    color: #00b074;
   }
   h2 {
     font-weight: 300;
     font-size: 16px;
     margin-bottom: 24px;
+    font-style: italic;
+    color: #868c94;
   }
 
   p {
     font-weight: 400;
-    font-style: italic;
     font-size: 16px;
     flex-grow: 1;
+    color: #868c94;
+    margin-bottom: 24px;
+  }
+
+  a {
+    font-style: italic;
+    color: #0b132a;
+    text-decoration: none;
   }
 }
 </style>
