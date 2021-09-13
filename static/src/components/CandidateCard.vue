@@ -23,10 +23,10 @@ export default {
       // if we dont have the document base64 on our props
       // this means we need to fetch it from the store first
       if (!this.document) {
-        await this.store.dispatch('fetchCandidate', this.candidate);
+        await this.$store.dispatch('fetchCandidate', this.candidate);
       }
 
-      const base64Document = this.store.state.candidates[this.candidate.id].document;
+      const base64Document = this.$store.state.candidates[this.candidate.id].document;
       const downloadAnchor = document.createElement('a');
       downloadAnchor.href = `data:application/pdf;base64,${base64Document}`;
       downloadAnchor.download = `cv.pdf`;
