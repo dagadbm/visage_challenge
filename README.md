@@ -1,6 +1,11 @@
 # Visage Challenge
 
+Check https://peaceful-kepler-e182f2.netlify.app/
+
 ## Initial Thought Process
+In full transparency, as per Visage culture. I have written this chapter before doing a single line of code on this challenge.
+
+
 Before I start developing I am taking some notes here both for you, the reviewers, to understand what I thought about before coding and the challenges that I have faced.
 Since Visage opts in for full transparency (I am also a pretty transparent person personally as well) I have decided to write some more details
 The below sections could then evolve and live separately as [ADRs](https://github.com/joelparkerhenderson/architecture-decision-record) so there is a history on this repository for the future so they know the challenges and decisions done, the how and the why the project has evolved to where it has which tends to be THE hardest thing in software to do IMHO.
@@ -38,3 +43,28 @@ Still this is something that I will probably scope out.
 ### Semantic commits
 I will try to adhere to using semantic commits whenever possible but this will be best effort.
 Im sure you are all familiar with this but I this (gist)[https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716] has some more details (check the reference section for more)
+
+## Final Comments
+In full transparency, as per Visage culture. I have written this chapter after finishing the challenge.
+
+I had a hard time deploying to heroku due to the strict necessity of heroku to have everything in the root folder.
+I tried the Procfiles, I did a couple of other things but unfortunatelly I was unsuccesful on what I wanted to achieve: the node js app deployed and serving the index.html under / GET route.
+
+In the end I had to keep everything in the root and then use Netlify (which took me exactly 5 minutes to setup, if less) to build the static page.
+This means I have a back-end app running on https://visage-challenge.herokuapp.com/ (you will just see it log errors but its working on the /api endpoints)
+And the SPA site running here https://peaceful-kepler-e182f2.netlify.app/
+
+All in all, for me this was an interesting challenge since it was my first time actually using Node.js, to be fair this is not my finest work but given all I had to learn to get things setup up at least things are working.
+
+For this to be an actual scalable solution we would have to use S3 or something similar to store all the candidates CVs. and not use base64 to pass them by the network.
+It is the simplest solution but not the best one.
+
+I also would have liked to have a better deployment flow and spend some more time here.
+
+Feature wise I would have liked to have implemented an edit and delete action on the cards, so when you hover you would see a pencil icon and a cross on the top right corner.
+I also would have liked to have a pdf previewer but I am unsure if the base64 solution would work for this or if I would need the exact binary.
+
+I decided to do the candidate creation in one API call to make it simpler to implement. In hindsight I believe the main point of this challenge would have been to use something like multi-part form data or octo-stream and have two separate API calls,one for the document and another for the user creation.
+The only down side to this approach that I see is that users would be able to upload CVs and then close the browser tab and we would be left with an orphan cv.
+
+There are more things that I could say but I will leave it for the technical discussion
