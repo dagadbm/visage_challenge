@@ -18,17 +18,19 @@ exports.getCandidate = async (req, reply) => {
         where: { id: req.params.id },
     });
 
-    return Object.assign(candidate, {
+    return {
+        id: candidate.id,
+        name: candidate.name,
+        jobTitle: candidate.jobTitle,
+        notes: candidate.notes,
         document: Buffer.from(candidate.document).toString('base64'),
-    });
+    };
 }
 
 exports.addCandidate = async (req, reply) => {
-    const document = Buffer.from(req.body.document, 'base64');
-
     const candidate = await Candidate.create({
         ...req.body,
-        document,
+        document: Buffer.from(req.body.document, 'base64'),
     });
 
     await candidate.save();
@@ -53,5 +55,11 @@ exports.updateCandidate = async (req, reply) => {
     }
     await candidate.save();
 
-    return candidate;
+    return {
+        id: candidate.id,
+        name: candidate.name,
+        jobTitle: candidate.jobTitle,
+        notes: candidate.notes,
+        document: Buffer.from(candidate.document).toString('base64'),
+    };
 }
