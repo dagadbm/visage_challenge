@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd static && npm install && npm run build",
     "prestart": "cd db && sequelize db:migrate --env production",
     "start": "node server.js",
     "prestart:local": "cd db && sequelize db:migrate --env development",
