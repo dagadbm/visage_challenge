@@ -19,7 +19,7 @@ server.register(require('fastify-cors'), {
 })
 
 server.register(require('fastify-static'), {
-  root: path.join(__dirname, '/../client/dist'),
+  root: path.join(__dirname, 'static/dist'),
 });
 server.get('/', function (req, reply) {
   return reply.sendFile('index.html')
