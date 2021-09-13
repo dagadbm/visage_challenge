@@ -3,6 +3,8 @@ const instance = require('./db/instance');
 const routes = require('./routes');
 const path = require('path');
 
+require('dotenv').config()
+
 const server = fastify({
   // 10 MB limit for the base64 pdfs (horrible solution)
   // this should be in S3 with ids and the ids on the candidates table
@@ -18,9 +20,6 @@ server.register(require('fastify-cors'), {
   }
 })
 
-server.register(require('fastify-static'), {
-  root: path.join(__dirname, 'static/dist'),
-});
 server.get('/', function (req, reply) {
   return reply.code(200);
 })
