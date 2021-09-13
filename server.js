@@ -22,7 +22,7 @@ server.register(require('fastify-static'), {
   root: path.join(__dirname, 'static/dist'),
 });
 server.get('/', function (req, reply) {
-  return reply.sendFile('index.html')
+  return reply.code(200);
 })
 server.register(routes);
 
