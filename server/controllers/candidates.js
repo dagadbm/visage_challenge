@@ -1,6 +1,7 @@
+const { Buffer } = require('buffer');
+
 const { Candidate } = require("../db/models");
 
-// get all post 
 exports.getAllCandidates = async (req, reply) => {
     const candidates = await Candidate.findAll({
         attributes: ['id', 'name', 'jobTitle', 'notes'],
@@ -12,17 +13,33 @@ exports.getAllCandidates = async (req, reply) => {
     }, {});
 }
 
-// get single post by id
 exports.getCandidate = async (req, reply) => {
-    return await Candidate.findOne({
+    const candidate = await Candidate.findOne({
         where: { id: req.params.id },
+    });
+
+    return Object.assign(candidate, {
+        document: Buffer.from(candidate.document).toString('base64'),
     });
 }
 
 exports.addCandidate = async (req, reply) => {
-    return await Candidate.create({
+    const document = Buffer.from(req.body.document, 'base64');
+
+    const candidate = await Candidate.create({
         ...req.body,
+        document,
     });
+
+    await candidate.save();
+
+    return {
+        id: candidate.id,
+        name: candidate.name,
+        jobTitle: candidate.jobTitle,
+        notes: candidate.notes,
+        document: req.body.document,
+    };
 }
 
 exports.updateCandidate = async (req, reply) => {
@@ -31,6 +48,9 @@ exports.updateCandidate = async (req, reply) => {
     });
 
     Object.keys(req.body).forEach(key => candidate[key] = req.body[key]);
+    if (req.body.document) {
+        candidate.document = Buffer.from(req.body.document, 'base64');
+    }
     await candidate.save();
 
     return candidate;

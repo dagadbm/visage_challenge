@@ -49,7 +49,7 @@ const routes = [
     handler: candidatesController.getCandidate,
     schema: {
       response: {
-        '2xx': getAllCandidatesSchema,
+        '2xx': getCandidateSchema,
       },
     },
   },
