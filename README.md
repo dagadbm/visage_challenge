@@ -2,6 +2,9 @@
 
 Check https://peaceful-kepler-e182f2.netlify.app/
 
+The back-end project is in root folder of this repository.
+The front-end project lives inside the static folder (it is a project generated with Vite).
+
 ## Initial Thought Process
 In full transparency, as per Visage culture. I have written this chapter before doing a single line of code on this challenge.
 
