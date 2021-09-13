@@ -2,8 +2,7 @@
   "name": "visage_challenge",
   "version": "1.0.0",
   "scripts": {
-    "build:static": "cd client && npm install && npm run build",
-    "start:server": "cd server && npm run start"
+    "start": "echo check Procfile"
   },
   "repository": {
     "type": "git",

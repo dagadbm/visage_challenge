@@ -1,1 +1,1 @@
-web: npm run build:static && npm run start:server
+web: cd client && npm install && npm run build && cd ../server && npm run start
