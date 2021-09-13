@@ -2,7 +2,7 @@
   "name": "visage_challenge",
   "version": "1.0.0",
   "scripts": {
-    "build:static": "cd client && npm run build",
+    "build:static": "cd client && npm run ci && npm run build",
     "start:server": "cd server && npm run start"
   },
   "repository": {
