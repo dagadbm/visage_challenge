@@ -1,0 +1,19 @@
+{
+  "name": "visage_challenge",
+  "version": "1.0.0",
+  "scripts": {
+    "build:static": "cd client && npm run build",
+    "start:server": "cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dagadbm/visage_challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dagadbm/visage_challenge/issues"
+  },
+  "homepage": "https://github.com/dagadbm/visage_challenge#readme"
+}
